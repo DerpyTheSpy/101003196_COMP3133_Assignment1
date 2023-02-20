@@ -8,7 +8,6 @@ const { typeDefs } = require('./typeDefs');
 const { resolvers } = require('./resolvers');
 const mongodb_atlas_url = "mongodb+srv://User:contrasena123@cluster1.qbnwblu.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
-
 mongoose.connect(mongodb_atlas_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -17,20 +16,14 @@ mongoose.connect(mongodb_atlas_url, {
 }).catch(err => {
   console.log('Error Mongodb connection')
 });
-
 async function startApolloServer(typeDefs, resolvers) {
-
-  const server = new ApolloServer({ typeDefs, resolvers });
-
+  const server = new ApolloServer({typeDefs, resolvers});
   await server.start();
-
   const app = express();
   app.use(bodyParser.json());
 
-
   server.applyMiddleware({
      app,
-
      path: '/'
   });
 
