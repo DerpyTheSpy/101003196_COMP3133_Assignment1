@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { typeDefs } = require('./typeDefs');
 const { resolvers } = require('./resolvers');
-const mongodb_atlas_url = "mongodb+srv://User:contrasena123@cluster1.qbnwblu.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
+const mongodb_atlas_url = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
 mongoose.connect(mongodb_atlas_url, {
   useNewUrlParser: true,
@@ -27,9 +27,8 @@ async function startApolloServer(typeDefs, resolvers) {
      path: '/'
   });
 
-const mongodb_atlas_url = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
-await new Promise(resolve => app.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000`);
+await new Promise(resolve => app.listen({ port: 8000 }, resolve));
+  console.log(`Server ready at http://localhost:8000`);
 }
 startApolloServer(typeDefs, resolvers);
