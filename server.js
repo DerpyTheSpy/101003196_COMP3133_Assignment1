@@ -30,6 +30,6 @@ async function startApolloServer(typeDefs, resolvers) {
 const mongodb_atlas_url = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
 await new Promise(resolve => app.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  console.log(`🚀 Server ready at http://localhost:4000`);
 }
 startApolloServer(typeDefs, resolvers);
