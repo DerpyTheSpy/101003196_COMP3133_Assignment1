@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 
-const typeDefs = gql`
+
+module.exports = gql`
 type Employee {
     id: ID!
     name: String!
@@ -32,4 +33,3 @@ type Mutation {
     deleteEmployee(id: ID!): Employee
     
 }`;
-module.exports = { typeDefs };

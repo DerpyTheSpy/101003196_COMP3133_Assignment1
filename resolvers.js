@@ -1,7 +1,7 @@
 const Employee = require('./models/employee');
 const Users = require('./models/user');
 
-const resolvers = {
+module.exports = {
 
     Query: {
         getUsers: async () => {
@@ -47,8 +47,4 @@ const resolvers = {
             }
         },
     }
-        
-
-
 }
-module.exports = {resolvers};
