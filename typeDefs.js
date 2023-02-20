@@ -25,14 +25,11 @@ type Query {
 }
 
 type Mutation {
-    
-   
-    
+
     createUser(username: String!, email: String!, password: String!): Users
     createEmployee(name: String!, lastname: String!, email: String!, gender: String!, salary: Float!): Employee
     updateEmployee(id: ID!, firstName: String!, lastName: String!, email: String!, gender: String!, salary: Float!): Employee
     deleteEmployee(id: ID!): Employee
-    
     
 }`;
 module.exports = { typeDefs };
