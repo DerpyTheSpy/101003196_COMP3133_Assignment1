@@ -1,49 +1,42 @@
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const employee = require('./models/employee');
+const user = require('./models/user');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const { typeDefs } = require('./typeDefs');
+const { resolvers } = require('./resolvers');
+const mongodb_atlas_url = "mongodb+srv://User:contrasena123@cluster1.qbnwblu.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
-const MONGODB = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
-const typeDefs = require('./typeDefs');
-const resolvers = require('./resolvers');
+mongoose.connect(mongodb_atlas_url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(success => {
+  console.log('Success Mongodb connection')
+}).catch(err => {
+  console.log('Error Mongodb connection')
+});
 
-mongoose.connect(MONGODB, { useNewUrlParser: true })
-    .then(() => {
-        console.log('MongoDB connected');
-        return server.listen({ port: 5000 });
-    })
-    .then(res => {
-        console.log(`Server running at ${res.url}`);
-    });
+async function startApolloServer(typeDefs, resolvers) {
 
-    //Define Express Server
-const app = express();
-app.use(bodyParser.json());
-app.use('*', cors());
+  const server = new ApolloServer({ typeDefs, resolvers });
 
-//Add Express app as middleware to Apollo Server
-server.applyMiddleware({app})
+  await server.start();
 
-//console.log(server)
+  const app = express();
+  app.use(bodyParser.json());
 
-async function startApolloServer(typeDefs, resolvers){
-    const server = new ApolloServer({typeDefs, resolvers})
-    const app = express();
-    server.start().then(res => {
-        server.applyMiddleware({ app, path: '/' });
-        app.listen({ port }, () => 
-          console.log(`Gateway API running at port: ${port}`)
-        );  
-      });
-    server.applyMiddleware({app, path: '/graphql'});
-    
-    app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}${server.graphqlPath}`);
-})
+
+  server.applyMiddleware({
+     app,
+
+     path: '/'
+  });
+
+const mongodb_atlas_url = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
+
+await new Promise(resolve => app.listen({ port: 4000 }, resolve));
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
-
 startApolloServer(typeDefs, resolvers);
-
- //mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority
