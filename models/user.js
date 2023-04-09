@@ -1,21 +1,21 @@
-const mongoose = require('mongoose')
-const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const mongoose = require('mongoose');
+
 const userSchema = new mongoose.Schema({
-    
     username: {
-        type: String,
-        unique: true
-    },
-    password: {
         type: String,
         required: true
     },
     email: {
         type: String,
-        unique: true,
         required: true,
-        match: emailRegex
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
     }
-})
-const users = mongoose.model("Users",userSchema)
-module.exports = users;
+});
+
+const User = mongoose.model('user', userSchema);
+
+module.exports = User;
