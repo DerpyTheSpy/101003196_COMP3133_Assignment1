@@ -1,7 +1,5 @@
 const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
-const employee = require('./models/employee');
-const user = require('./models/user');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { typeDefs } = require('./typeDefs');
