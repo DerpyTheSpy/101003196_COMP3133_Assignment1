@@ -22,7 +22,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
   server.applyMiddleware({
      app,
-     path: '/'
+     path: '/graphql'
   });
 
 
@@ -30,3 +30,5 @@ await new Promise(resolve => app.listen({ port: 8000 }, resolve));
   console.log(`Server ready at http://localhost:8000`);
 }
 startApolloServer(typeDefs, resolvers);
+
+apolloServer.applyMiddleware({app, path: '/graphql'})
