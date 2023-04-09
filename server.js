@@ -20,17 +20,14 @@ async function startApolloServer(typeDefs, resolvers) {
   const app = express();
   app.use(bodyParser.json());
 
+  app.get('/', (_, res) => {
+    res.redirect('/graphql');
+  });
+  
   server.applyMiddleware({
      app,
      path: '/graphql'
   });
-
-  app.get('/', (_, res) => {
-    res.redirect('/graphql');
-  });
-
-
-  server.applyMiddleware({app, path: '/graphql'});
 
 
 await new Promise(resolve => app.listen({ port: 8000 }, resolve));
