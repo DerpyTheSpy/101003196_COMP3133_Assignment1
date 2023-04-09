@@ -1,11 +1,15 @@
-const { ApolloServer } = require('apollo-server-express');
 const express = require('express');
-const employee = require('./models/employee');
-const user = require('./models/user');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const { typeDefs } = require('./typeDefs');
-const { resolvers } = require('./resolvers');
+const cors = require('cors');
+
+//import typedefs and resolvers
+const TypeDefs = require('./schema')
+const Resolvers = require('./resolvers')
+
+//import ApolloServer
+const { ApolloServer } = require('apollo-server-express')
+
 const mongodb_atlas_url = "mongodb+srv://derpythespy:2231663@cluster0.4dp6azc.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
 mongoose.connect(mongodb_atlas_url, {
@@ -16,6 +20,7 @@ mongoose.connect(mongodb_atlas_url, {
 }).catch(err => {
   console.log('Error Mongodb connection')
 });
+
 async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({typeDefs, resolvers});
   await server.start();

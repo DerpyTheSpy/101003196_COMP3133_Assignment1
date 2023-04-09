@@ -1,32 +1,35 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-//Employee Schema model
-
+const emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const employeeSchema = new mongoose.Schema({
-    firstName: {
+    first_name: {
         type: String,
         required: true
     },
-    lastName: {
+    last_name: {
         type: String,
         required: true
     },
     email: {
         type: String,
-        required: true
-    },
+        unique: true,
+        required: true,
+        match: [emailRegex, "Invalid email format"]
+      },
     gender: {
         type: String,
-        enum: ["Male", "Female", "Other"],
-        required: true
+        required: true,
+        enum: {
+            values: ['Male','Gender','Other'],
+            message: "Gender must be Male, Female, or Other."
+        }
     },
     salary: {
         type: Number,
         required: true
     }
-});
+})
 
+const employess = mongoose.model('Employees',employeeSchema)
 
-const Employee = mongoose.model('employee', employeeSchema);
-
-module.exports = Employee;
+module.exports = employess
